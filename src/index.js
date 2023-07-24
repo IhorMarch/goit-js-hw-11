@@ -44,15 +44,13 @@ function handlerSubmit(evt) {
   ref.btnSubmit.disabled = true;
   const { searchQuery } = evt.currentTarget.elements;
   const search = searchQuery.value;
-  currentPage = 1;
+
 
   if (search === '') {
-    return Notiflix.Notify.warning('Your query must start with a LETTER or NUMBER and must not be EMPTY!');;
+    return Notiflix.Notify.warning('Your query must not be EMPTY!');;
   }
 
-  serviceSearch(search)
-    
-    .then(data => {
+  serviceSearch(search).then(data => {
       
       totalHits = data.totalHits;
       const imgArr = data.hits;
@@ -60,12 +58,9 @@ function handlerSubmit(evt) {
       if (imgArr.length === 0) {
        ref.gallery.innerHTML = '';
     Notiflix.Notify.info('Sorry, there are no images matching your search query. Please try again.');
-    }
-      
+    }  
     else {
-     
-      ref.gallery.insertAdjacentHTML('beforeend', createMarkup(imgArr));
-      
+      ref.gallery.insertAdjacentHTML('beforeend', createMarkup(imgArr)); 
       if (totalHits > perPage) {
         ref.btnLoader.hidden = false;
       }
@@ -114,30 +109,31 @@ function handlerClick(evt) {
     })
 }
 
-
+// INPUT
+ 
 function handlerInput(evt) {
   evt.preventDefault();
-  if ( ( evt.target.value.trim().length ) === 0 ) {
-    // Notiflix.Notify.warning('Your query must start with a LETTER or NUMBER and must not be EMPTY!');
-    evt.target.value = '';
-    // ref.btnSubmit.disabled = true
+  // if ( ( evt.target.value.trim().length ) === 0 ) {
+  //   // Notiflix.Notify.warning('Your query must start with a LETTER or NUMBER and must not be EMPTY!');
+  //   evt.target.value = '';
+  //   // ref.btnSubmit.disabled = true
     
-    return;
-  }
+  //   return;
+  // }
   
   const formData = evt.target.value;
   console.log(formData);
   localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(formData));
   ref.btnSubmit.disabled = false;
-  userInfo = evt.target.value.trim();
+
 
 }
+  
+// GET to BackEnd
 
-
-       
 function serviceSearch(search,page) {
     const BASE_URL = 'https://pixabay.com/api/';
-    // // const KEY ='38353437-6f1411718b397c5cf93033660';
+   
 
     const params = new URLSearchParams({
         key: KEY,
@@ -161,6 +157,8 @@ function serviceSearch(search,page) {
             
             
 }
+
+// RENDER
 
 function createMarkup(arr) {
     return arr.map(img => `<div class="photo-card">
