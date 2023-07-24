@@ -165,16 +165,16 @@ function createMarkup(arr) {
         <a href="${img.largeImageURL}"><img src="${img.webformatURL }" alt="${img.tags }" loading="lazy" /></a>
         <div class="info">
           <p class="info-item">
-            <b>Likes${img.likes}</b>
+            <b>Likes ${img.likes}</b>
           </p>
           <p class="info-item">
-            <b>Views${img.comments}</b>
+            <b>Views ${img.comments}</b>
           </p>
           <p class="info-item">
-            <b>Comments${img.views}</b>
+            <b>Comments ${img.views}</b>
           </p>
           <p class="info-item">
-            <b>Downloads${img.downloads}</b>
+            <b>Downloads ${img.downloads}</b>
           </p>
         </div> `).join('')
 }
