@@ -52,7 +52,7 @@ function handlerSubmit(evt) {
 
   serviceSearch(search).then(data => {
       
-      totalHits = data.totalHits;
+      const totalHits = data.totalHits;
       const imgArr = data.hits;
       ref.btnLoader.hidden = true;
       if (imgArr.length === 0) {
@@ -88,8 +88,8 @@ function handlerClick(evt) {
     
     .then(data => {
       
-      totalHits = data.totalHits;
-      totalPages = Math.ceil( totalHits / perPage );
+      const totalHits = data.totalHits;
+      const totalPages = Math.ceil( totalHits / perPage );
       const imgArr = data.hits;
      
       ref.gallery.insertAdjacentHTML('beforeend', createMarkup(imgArr));
