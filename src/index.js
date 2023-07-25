@@ -20,7 +20,7 @@ const ref = {
   form: document.querySelector('.search-form'),
   searchQuery: document.querySelector('input'),
   btnSubmit: document.querySelector('.submit'),
-  btnLoader: document.querySelector('.load-more'),
+  btnLoader: document.querySelector('.btn-load'),
   gallery:document.querySelector('.gallery'),
 };
 
@@ -80,10 +80,10 @@ function handlerSubmit(evt) {
 
 // Load More IMG
 
-function handlerClick(evt) {
+async function handlerClick(evt) {
   evt.preventDefault();
   page += 1;
-  const parsedSettings = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
+   const parsedSettings = await JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
   serviceSearch(parsedSettings,page)
     
     .then(data => {
@@ -113,16 +113,8 @@ function handlerClick(evt) {
  
 function handlerInput(evt) {
   evt.preventDefault();
-  // if ( ( evt.target.value.trim().length ) === 0 ) {
-  //   // Notiflix.Notify.warning('Your query must start with a LETTER or NUMBER and must not be EMPTY!');
-  //   evt.target.value = '';
-  //   // ref.btnSubmit.disabled = true
-    
-  //   return;
-  // }
-  
   const formData = evt.target.value;
-  console.log(formData);
+  
   localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(formData));
   ref.btnSubmit.disabled = false;
 
@@ -132,7 +124,7 @@ function handlerInput(evt) {
 // GET to BackEnd
 
 function serviceSearch(search,page) {
-    const BASE_URL = 'https://pixabay.com/api/';
+const BASE_URL = 'https://pixabay.com/api/';
    
 
     const params = new URLSearchParams({
@@ -145,7 +137,6 @@ function serviceSearch(search,page) {
         per_page: perPage,
     })
 
-    // return fetch(`${BASE_URL}?${params}`)
       return axios.get(`${BASE_URL}?${params}`)
         .then(response => {
             console.dir(response.data.total);
@@ -161,21 +152,29 @@ function serviceSearch(search,page) {
 // RENDER
 
 function createMarkup(arr) {
-    return arr.map(img => `<div class="photo-card">
-        <a href="${img.largeImageURL}"><img src="${img.webformatURL }" alt="${img.tags }" loading="lazy" /></a>
-        <div class="info">
-          <p class="info-item">
-            <b>Likes ${img.likes}</b>
-          </p>
-          <p class="info-item">
-            <b>Views ${img.comments}</b>
-          </p>
-          <p class="info-item">
-            <b>Comments ${img.views}</b>
-          </p>
-          <p class="info-item">
-            <b>Downloads ${img.downloads}</b>
-          </p>
-        </div> `).join('')
+  return arr.map(img => 
+    `
+    
+  <div class="photo-card">
+  <a class="photo-card__link" href="${img.largeImageURL}"><img class="photo-card__image" src="${img.webformatURL}" alt="${img.tags}" loading="lazy"/></a>
+  <div class="info">
+    <p class="info-item">
+      <b>Likes</b>
+      ${img.likes}
+    </p>
+    <p class="info-item">
+      <b>Views</b>
+      ${img.views}
+    </p>
+    <p class="info-item">
+      <b>Comments</b>
+      ${img.comments}
+    </p>
+    <p class="info-item">
+      <b>Downloads</b>
+      ${img.downloads}
+    </p>
+  </div>
+</div>`).join('')
 }
 

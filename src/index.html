@@ -4,41 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Page title</title>
-  
-    <link rel="stylesheet" href="./style.css">
-    <script type="module" src="./index.js"></script>
+
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <form class="search-form" id="search-form">
-      <input
-        type="text"
-        name="searchQuery"
-        autocomplete="off"
-        placeholder="Search images..."
-      />
-      <button type="submit" class="submit">Search</button>
-    </form>
-    <div class="gallery"></div>
+    <div class="header">
+      <form class="search-form" id="search-form">
+        <input
+          class="search-input"
+          type="text"
+          name="searchQuery"
+          placeholder="Search images..."
+        />
+        <button type="submit" class="btn submit">Search</button>
+      </form>
     </div>
-    <button type="button" class="load-more">Load more</button>
+    <div class="gallery"></div>
+    <button type="button" class="btn btn-load">Load more</button>
+
+    <script src="index.js" type="module"></script>
   </body>
 </html>
-<!-- 
- <div class="gallery">
-`<div class="photo-card">
-        <a href="${img.largeImageURL}"><img src="${img.webformatURL }" alt="${img.tags }" loading="lazy" /></a>
-        <div class="info">
-          <p class="info-item">
-            <b>Likes${img.likes}</b>
-          </p>
-          <p class="info-item">
-            <b>Views${img.comments}</b>
-          </p>
-          <p class="info-item">
-            <b>Comments${img.views}</b>
-          </p>
-          <p class="info-item">
-            <b>Downloads${img.downloads}</b>
-          </p>
-        </div>
-        </div> -->
