@@ -50,7 +50,7 @@ function handlerSubmit(evt) {
     return Notiflix.Notify.warning('Your query must not be EMPTY!');;
   }
 
-  serviceSearch(search).then(data => {
+  serviceSearch(search,page).then(data => {
       
       const totalHits = data.totalHits;
       const imgArr = data.hits;
@@ -83,7 +83,8 @@ function handlerSubmit(evt) {
 async function handlerClick(evt) {
   evt.preventDefault();
   page += 1;
-   const parsedSettings = await JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
+  const parsedSettings = await JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
+  
   serviceSearch(parsedSettings,page)
     
     .then(data => {
@@ -93,6 +94,7 @@ async function handlerClick(evt) {
       const imgArr = data.hits;
      
       ref.gallery.insertAdjacentHTML('beforeend', createMarkup(imgArr));
+      lightbox.refresh();
        if (totalPages === page) {
       ref.btnLoader.hidden = true
       return Notiflix.Notify.info(
